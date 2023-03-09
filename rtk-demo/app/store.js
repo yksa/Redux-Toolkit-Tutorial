@@ -8,7 +8,7 @@ const logger = reduxlogger.createLogger();
 
 const store = configureStore({
   reducer: { cake: cakeReducer, iceCream: iceCreamReducer },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
 });
 
 module.exports = store;

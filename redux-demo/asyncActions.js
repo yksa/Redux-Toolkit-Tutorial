@@ -1,4 +1,7 @@
 const redux = require("redux");
+const applyMiddleware = redux.applyMiddleware;
+const thunkMiddleware = require("redux-thunk").default;
+const axios = require("axios");
 
 const initialState = {
   loading: false,
@@ -61,4 +64,28 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-const store = redux.createStore(reducer);
+// async action creator (thunk), it will return function, that include side-effect
+const fetchUsers = () => {
+  return async function (dispatch) {
+    dispatch(fetchUsersRequest());
+    try {
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/users"
+      );
+      // response.data is the users
+      const users = response.data.map((item) => item.name);
+      dispatch(fetchUsersSuccess(users));
+    } catch (error) {
+      // error.message is the error message
+      dispatch(fetchUsersFail(error.message));
+    }
+  };
+};
+
+const store = redux.createStore(reducer, applyMiddleware(thunkMiddleware));
+
+const unsubscribe = store.subscribe(() => {
+  console.log(store.getState());
+});
+
+store.dispatch(fetchUsers());

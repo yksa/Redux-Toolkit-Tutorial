@@ -10,7 +10,7 @@ import cakeReducer from "./features/cake/cakeSlice";
 import iceCreamReducer from "./features/icecream/iceCreamSlice";
 import userReducer from "./features/user/userSlice";
 
-const logger = reduxlogger.createLogger();
+// const logger = reduxlogger.createLogger();
 
 const store = configureStore({
   reducer: { cake: cakeReducer, iceCream: iceCreamReducer, user: userReducer },

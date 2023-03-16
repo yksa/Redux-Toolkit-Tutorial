@@ -84,7 +84,7 @@ const fetchUsers = () => {
 
 const store = redux.createStore(reducer, applyMiddleware(thunkMiddleware));
 
-const unsubscribe = store.subscribe(() => {
+store.subscribe(() => {
   console.log(store.getState());
 });
 
